@@ -2,10 +2,12 @@
   "presets": [
     "@babel/preset-react",
     "@emotion/babel-preset-css-prop",
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
+    ["@babel/preset-react", {"runtime": "automatic"}]
   ],
   "plugins": [
     "react-hot-loader/babel",
-    "@emotion"
+    "@emotion",
+    "@babel/plugin-transform-react-jsx-compat"
   ]
 }

@@ -1,17 +1,69 @@
 import {
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { selectUserByID } from "./users";
 
-type Posts = { userId: string; id: string; title: string; body: string };
-
+type Posts = { userId: number; id: number; title: string; body: string };
+const notesOnPage = 7;
 export const postsAdapter = createEntityAdapter<Posts>({
   selectId: (posts) => posts.id,
 });
 
 const selectState = (state: RootState) => state.posts;
+const selectRootState = (state: RootState) => state;
+
+export const selectPostsCount = (authorId: number) =>
+  createSelector([selectRootState], (state) => {
+    const posts = selectAll(state);
+    if (authorId) {
+      return posts.filter((e) => {
+        return e.userId === authorId;
+      }).length;
+    }
+    return posts.length;
+  });
+
+export const selectPosts = (
+  page: number,
+  authorId: number,
+  searchFields: string
+) =>
+  createSelector([selectRootState], (state) => {
+    const posts = selectAll(state);
+    if (searchFields) {
+      return posts
+        .filter((e) => {
+          return e.body.includes(searchFields);
+        })
+        .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
+        .map((el) => {
+          const user = selectUserByID(state, el.userId);
+          return { ...el, user: user };
+        });
+    }
+    if (authorId) {
+      return posts
+        .filter((e) => {
+          return e.userId === authorId;
+        })
+        .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
+        .map((el) => {
+          const user = selectUserByID(state, el.userId);
+          return { ...el, user: user };
+        });
+    }
+    return posts
+      .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
+      .map((el) => {
+        const user = selectUserByID(state, el.userId);
+        return { ...el, user: user };
+      });
+  });
+
 export const { selectAll } = postsAdapter.getSelectors(selectState);
 
 export const getPosts = createAsyncThunk(`/getPosts`, async () => {
@@ -20,7 +72,7 @@ export const getPosts = createAsyncThunk(`/getPosts`, async () => {
 });
 
 export const postsSlice = createSlice({
-  name: "users",
+  name: "posts",
   initialState: postsAdapter.getInitialState(),
   reducers: {},
   extraReducers: {

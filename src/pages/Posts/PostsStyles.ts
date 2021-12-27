@@ -3,12 +3,9 @@ import { css } from "@emotion/react";
 export const PostsStyles = {
   PostsWrap: css`
     margin-top: 50px;
-    display: flex;
-    justify-content: center;
   `,
   PostsContent: css`
-    display: flex;
-    justify-content: center;
+    margin: auto;
     width: 800px;
   `,
   PostsContentHeader: css`
@@ -17,5 +14,16 @@ export const PostsStyles = {
   `,
   PostsContentTr: css`
     border: 1px solid black;
+  `,
+  PostsContentPagination: css`
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  `,
+  PostsContentTbody: css`
+    //height: 560px;
+  `,
+  PostsContentBtn: css`
+    display: flex;
   `,
 };

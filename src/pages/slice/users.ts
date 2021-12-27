@@ -5,14 +5,15 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-type Users = { id: string; name: string };
+type Users = { id: number; name: string };
 
 export const usersAdapter = createEntityAdapter<Users>({
   selectId: (posts) => posts.id,
 });
 
 const selectState = (state: RootState) => state.users;
-export const { selectAll } = usersAdapter.getSelectors(selectState);
+export const { selectAll, selectById: selectUserByID } =
+  usersAdapter.getSelectors(selectState);
 
 export const getUsers = createAsyncThunk(`/getUsers`, async () => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users`);

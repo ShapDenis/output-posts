@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPosts, selectPosts, selectPostsCount } from "../slice/post";
 import { getUsers, selectAll } from "../slice/users";
 import { PostsStyles } from "./PostsStyles";
+import { useNavigate } from "react-router-dom";
 
 export const Posts: FC = () => {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
   const [authorChange, setAuthorChange] = useState<number>();
   const [searchFields, setSearchFields] = useState<string>();
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export const Posts: FC = () => {
       dispatch(getPosts());
     }
   }, []);
-
+  console.log(posts);
   const pagination = (posts: any) => {
     const countOfItems = Array.from(
       { length: Math.ceil(postsCount / notesOnPage) },
@@ -52,7 +54,6 @@ export const Posts: FC = () => {
         <input
           type="text"
           onChange={(event) => {
-            console.log(event.target.value);
             setSearchFields(event.target.value);
             setPage(0);
           }}
@@ -74,7 +75,7 @@ export const Posts: FC = () => {
                     <td css={PostsStyles.PostsContentTr}>{post.body}</td>
                   </tr>
                   <div css={PostsStyles.PostsContentBtn}>
-                    <button>edit</button>
+                    <button onClick={() => navigate(`/post`)}>edit</button>
                     <button>del</button>
                   </div>
                 </>

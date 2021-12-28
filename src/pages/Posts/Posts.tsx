@@ -22,13 +22,11 @@ export const Posts: FC = () => {
       dispatch(getPosts());
     }
   }, []);
-  console.log(posts);
   const pagination = (posts: any) => {
     const countOfItems = Array.from(
       { length: Math.ceil(postsCount / notesOnPage) },
       () => posts.slice(0, notesOnPage)
     );
-
     return countOfItems.map((el, index) => (
       <button onClick={() => setPage(index)} key={index}>
         {index + 1}

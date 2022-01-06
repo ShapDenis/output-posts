@@ -8,7 +8,7 @@ import { RootState } from "../../store";
 type Users = { id: number; name: string };
 
 export const usersAdapter = createEntityAdapter<Users>({
-  selectId: (posts) => posts.id,
+  selectId: (users) => users.id,
 });
 
 const selectState = (state: RootState) => state.users;

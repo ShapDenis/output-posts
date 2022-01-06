@@ -64,6 +64,11 @@ export const selectPosts = (
       });
   });
 
+export const selectPost = (id: number) =>
+  createSelector([selectRootState], (state) => {
+    return selectAll(state).filter((e) => e.id === id)[0];
+  });
+
 export const { selectAll } = postsAdapter.getSelectors(selectState);
 
 export const getPosts = createAsyncThunk(`/getPosts`, async () => {

@@ -11,7 +11,9 @@ const App: FC = () => {
       <Navbar />
       <Routes>
         <Route key={"/"} path="/" element={<Posts />} />
-        <Route key={"/post"} path="/post" element={<Post />} />
+        <Route key={"/post"} path="/post">
+          <Route key={":id"} path=":id" element={<Post />} />
+        </Route>
       </Routes>
     </>
   );

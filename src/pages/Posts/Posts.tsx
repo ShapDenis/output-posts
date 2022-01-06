@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPosts, selectPosts, selectPostsCount } from "../slice/post";
 import { getUsers, selectAll } from "../slice/users";
 import { PostsStyles } from "./PostsStyles";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Posts: FC = () => {
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
   const [authorChange, setAuthorChange] = useState<number>();
   const [searchFields, setSearchFields] = useState<string>();
   const dispatch = useDispatch();
@@ -63,7 +62,7 @@ export const Posts: FC = () => {
             <th css={PostsStyles.PostsContentHeader}>Body</th>
           </tr>
           {posts &&
-            posts.length > 0 &&
+            posts.length >= 0 &&
             posts.map((post, key) => {
               return (
                 <>
@@ -73,7 +72,9 @@ export const Posts: FC = () => {
                     <td css={PostsStyles.PostsContentTr}>{post.body}</td>
                   </tr>
                   <div css={PostsStyles.PostsContentBtn}>
-                    <button onClick={() => navigate(`/post`)}>edit</button>
+                    <Link to={`/post/${post.id}`}>
+                      <button>edit</button>
+                    </Link>
                     <button>del</button>
                   </div>
                 </>

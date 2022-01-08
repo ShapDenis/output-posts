@@ -4,7 +4,6 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { usersAdapter } from "./users";
 
 type Comments = {
   postId: number;
@@ -14,13 +13,13 @@ type Comments = {
   body: string;
 };
 
-export const postsAdapter = createEntityAdapter<Comments>({
+export const commentsAdapter = createEntityAdapter<Comments>({
   selectId: (comments) => comments.id,
 });
 
 const selectState = (state: RootState) => state.comments;
 export const { selectAll, selectById: selectUserByID } =
-  postsAdapter.getSelectors(selectState);
+  commentsAdapter.getSelectors(selectState);
 
 export const getComments = createAsyncThunk(
   `/getComments`,
@@ -34,13 +33,19 @@ export const getComments = createAsyncThunk(
 
 export const commentsSlice = createSlice({
   name: "comments",
-  initialState: postsAdapter.getInitialState(),
-  reducers: {},
+  initialState: commentsAdapter.getInitialState(),
+  reducers: {
+    commentUpdated: commentsAdapter.updateMany,
+    commentDelete: commentsAdapter.removeOne,
+    commentAdd: commentsAdapter.addOne,
+  },
   extraReducers: {
     [getComments.fulfilled.type]: (state, action) => {
-      postsAdapter.setAll(state, action.payload);
+      commentsAdapter.setAll(state, action.payload);
     },
   },
 });
+export const { commentUpdated, commentDelete, commentAdd } =
+  commentsSlice.actions;
 
 export const comments = commentsSlice.reducer;

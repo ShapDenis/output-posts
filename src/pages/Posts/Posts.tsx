@@ -1,6 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts, selectPosts, selectPostsCount } from "../slice/post";
+import {
+  getPosts,
+  postDelete,
+  selectPosts,
+  selectPostsCount,
+} from "../slice/post";
 import { getUsers, selectAll } from "../slice/users";
 import { PostsStyles } from "./PostsStyles";
 import { Link } from "react-router-dom";
@@ -31,6 +36,9 @@ export const Posts: FC = () => {
         {index + 1}
       </button>
     ));
+  };
+  const deletePost = (comment: any) => {
+    dispatch(postDelete(comment.id));
   };
   return (
     <div css={PostsStyles.PostsWrap}>
@@ -63,21 +71,21 @@ export const Posts: FC = () => {
           </tr>
           {posts &&
             posts.length >= 0 &&
-            posts.map((post, key) => {
+            posts.map((post) => {
               return (
-                <>
-                  <tr key={key}>
+                <Fragment key={post.id}>
+                  <tr>
                     <td css={PostsStyles.PostsContentTr}>{post.user.name}</td>
                     <td css={PostsStyles.PostsContentTr}>{post.title}</td>
                     <td css={PostsStyles.PostsContentTr}>{post.body}</td>
                   </tr>
-                  <div css={PostsStyles.PostsContentBtn}>
+                  <tr css={PostsStyles.PostsContentBtn}>
                     <Link to={`/post/${post.id}`}>
                       <button>edit</button>
                     </Link>
-                    <button>del</button>
-                  </div>
-                </>
+                    <button onClick={() => deletePost(post)}>del</button>
+                  </tr>
+                </Fragment>
               );
             })}
         </tbody>

@@ -7,9 +7,9 @@ import {
 import { RootState } from "../../store";
 import { selectUserByID } from "./users";
 
-type Posts = { userId: number; id: number; title: string; body: string };
+type Post = { userId: number; id: number; title: string; body: string };
 const notesOnPage = 7;
-export const postsAdapter = createEntityAdapter<Posts>({
+export const postsAdapter = createEntityAdapter<Post>({
   selectId: (posts) => posts.id,
 });
 
@@ -79,12 +79,17 @@ export const getPosts = createAsyncThunk(`/getPosts`, async () => {
 export const postsSlice = createSlice({
   name: "posts",
   initialState: postsAdapter.getInitialState(),
-  reducers: {},
+  reducers: {
+    postUpdated: postsAdapter.updateOne,
+    postDelete: postsAdapter.removeOne,
+    postAdd: postsAdapter.addOne,
+  },
   extraReducers: {
     [getPosts.fulfilled.type]: (state, action) => {
       postsAdapter.setAll(state, action.payload);
     },
   },
 });
+export const { postUpdated, postDelete, postAdd } = postsSlice.actions;
 
 export const posts = postsSlice.reducer;

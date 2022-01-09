@@ -3,7 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PostStyles } from "./PostStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectPost } from "../slice/post";
-import { commentDelete, commentUpdated, getComments } from "../slice/comments";
+import {
+  commentAdd,
+  commentDelete,
+  commentUpdated,
+  getComments,
+} from "../slice/comments";
 import { selectAll } from "../slice/comments";
 import { PostsStyles } from "../Posts/PostsStyles";
 import { postUpdated } from "../slice/post";
@@ -33,7 +38,6 @@ export const Post: FC = () => {
         },
       })
     );
-
     dispatch(
       commentUpdated(
         comments.map((comment) => {
@@ -48,11 +52,21 @@ export const Post: FC = () => {
         })
       )
     );
-
     navigate(`/`);
   };
   const deleteComment = (comment: any) => {
     dispatch(commentDelete(comment.id));
+  };
+  const addComment = () => {
+    dispatch(
+      commentAdd({
+        postId: post.id,
+        id: Math.random() + 500,
+        name: "",
+        email: "",
+        body: "",
+      })
+    );
   };
 
   return (
@@ -130,6 +144,7 @@ export const Post: FC = () => {
                         />
                       </td>
                       <div onClick={() => deleteComment(comment)}>del</div>
+                      <div onClick={() => addComment()}>Add commit</div>
                     </tr>
                   );
                 })}

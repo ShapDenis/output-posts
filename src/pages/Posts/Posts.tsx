@@ -2,6 +2,7 @@ import React, { FC, Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getPosts,
+  postAdd,
   postDelete,
   selectPosts,
   selectPostsCount,
@@ -40,6 +41,18 @@ export const Posts: FC = () => {
   const deletePost = (comment: any) => {
     dispatch(postDelete(comment.id));
   };
+
+  const addPost = () => {
+    dispatch(
+      postAdd({
+        body: "",
+        id: postsCount + 1,
+        title: "",
+        userId: 2,
+      })
+    );
+  };
+
   return (
     <div css={PostsStyles.PostsWrap}>
       <div css={PostsStyles.PostsContent}>
@@ -63,6 +76,7 @@ export const Posts: FC = () => {
             setPage(0);
           }}
         />
+        <button onClick={() => addPost()}>add Post</button>
         <tbody css={PostsStyles.PostsContentTbody}>
           <tr>
             <th css={PostsStyles.PostsContentHeader}>User</th>

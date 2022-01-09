@@ -46,7 +46,7 @@ export const Posts: FC = () => {
     dispatch(
       postAdd({
         body: "",
-        id: postsCount + 1,
+        id: Math.random() + 500,
         title: "",
         userId: 2,
       })

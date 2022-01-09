@@ -85,10 +85,10 @@ export const Post: FC = () => {
 
             <tr>
               <td css={PostStyles.PostsContentTr}>
-                <input type="text" name="userId" value={post.userId} />
+                <input type="text" name="userId" readOnly value={post.userId} />
               </td>
               <td css={PostStyles.PostsContentTr}>
-                <input type="text" name="id" value={post.id} />
+                <input type="text" name="id" readOnly value={post.id} />
               </td>
               <td css={PostStyles.PostsContentTr}>
                 <input type="text" name="title" defaultValue={post.title} />
@@ -98,58 +98,58 @@ export const Post: FC = () => {
               </td>
             </tr>
           </tbody>
-          <div>
-            <p>Comments</p>
-            <tbody css={PostStyles.PostsContentTbody}>
-              <tr>
-                <th css={PostStyles.PostsContentHeader}>postId</th>
-                <th css={PostStyles.PostsContentHeader}>id</th>
-                <th css={PostStyles.PostsContentHeader}>name</th>
-                <th css={PostStyles.PostsContentHeader}>email</th>
-                <th css={PostStyles.PostsContentHeader}>body</th>
-              </tr>
-              {comments &&
-                comments.map((comment, key) => {
-                  return (
-                    <tr key={key}>
-                      <td css={PostsStyles.PostsContentTr}>
-                        <input type="text" value={comment.postId} />
-                      </td>
-                      <td css={PostsStyles.PostsContentTr}>
-                        <input
-                          name={`${comment.id}.id`}
-                          type="text"
-                          value={comment.id}
-                        />
-                      </td>
-                      <td css={PostsStyles.PostsContentTr}>
-                        <input
-                          name={`${comment.id}.name`}
-                          type="text"
-                          defaultValue={comment.name}
-                        />
-                      </td>
-                      <td css={PostsStyles.PostsContentTr}>
-                        <input
-                          name={`${comment.id}.email`}
-                          type="text"
-                          defaultValue={comment.email}
-                        />
-                      </td>
-                      <td css={PostsStyles.PostsContentTr}>
-                        <input
-                          name={`${comment.id}.body`}
-                          type="text"
-                          defaultValue={comment.body}
-                        />
-                      </td>
-                      <div onClick={() => deleteComment(comment)}>del</div>
-                      <div onClick={() => addComment()}>Add commit</div>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </div>
+
+          <p>Comments</p>
+          <tbody css={PostStyles.PostsContentTbody}>
+            <tr onClick={() => addComment()}>Add commit</tr>
+            <tr>
+              <th css={PostStyles.PostsContentHeader}>postId</th>
+              <th css={PostStyles.PostsContentHeader}>id</th>
+              <th css={PostStyles.PostsContentHeader}>name</th>
+              <th css={PostStyles.PostsContentHeader}>email</th>
+              <th css={PostStyles.PostsContentHeader}>body</th>
+            </tr>
+            {comments &&
+              comments.map((comment, key) => {
+                return (
+                  <tr key={key}>
+                    <td css={PostsStyles.PostsContentTr}>
+                      <input type="text" readOnly value={comment.postId} />
+                    </td>
+                    <td css={PostsStyles.PostsContentTr}>
+                      <input
+                        name={`${comment.id}.id`}
+                        type="text"
+                        readOnly
+                        value={comment.id}
+                      />
+                    </td>
+                    <td css={PostsStyles.PostsContentTr}>
+                      <input
+                        name={`${comment.id}.name`}
+                        type="text"
+                        defaultValue={comment.name}
+                      />
+                    </td>
+                    <td css={PostsStyles.PostsContentTr}>
+                      <input
+                        name={`${comment.id}.email`}
+                        type="text"
+                        defaultValue={comment.email}
+                      />
+                    </td>
+                    <td css={PostsStyles.PostsContentTr}>
+                      <input
+                        name={`${comment.id}.body`}
+                        type="text"
+                        defaultValue={comment.body}
+                      />
+                    </td>
+                    <td onClick={() => deleteComment(comment)}>del</td>
+                  </tr>
+                );
+              })}
+          </tbody>
         </div>
       </div>
     </form>

@@ -21,15 +21,10 @@ const selectState = (state: RootState) => state.comments;
 export const { selectAll, selectById: selectUserByID } =
   commentsAdapter.getSelectors(selectState);
 
-export const getComments = createAsyncThunk(
-  `/getComments`,
-  async (id: number) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${id}/comments`
-    );
-    return await response.json();
-  }
-);
+export const getComments = createAsyncThunk(`/getComments`, async () => {
+  const response = await fetch(`https://jsonplaceholder.typicode.com/comments`);
+  return await response.json();
+});
 
 export const commentsSlice = createSlice({
   name: "comments",

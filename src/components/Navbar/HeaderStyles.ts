@@ -8,4 +8,15 @@ export const HeaderStyles = {
     background: rgba(49, 60, 78, 0.8);
     height: 50px;
   `,
+  HeaderNavLists: css`
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    text-transform: uppercase;
+    margin: 0;
+    align-items: center;
+  `,
+  HeaderNavListLink: css`
+    margin: 20px;
+  `,
 };

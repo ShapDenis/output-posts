@@ -10,15 +10,16 @@ import {
 import { getUsers, selectAll } from "../slice/users";
 import { PostsStyles } from "./PostsStyles";
 import { Link } from "react-router-dom";
+import { Pagination } from "../../helpers/Pagination";
 
 export const Posts: FC = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [authorChange, setAuthorChange] = useState<number>();
   const [searchFields, setSearchFields] = useState<string>();
   const dispatch = useDispatch();
   const posts = useSelector(selectPosts(page, authorChange, searchFields));
   const users = useSelector(selectAll);
-  const postsCount = useSelector(selectPostsCount(authorChange));
+  const count = useSelector(selectPostsCount(authorChange));
   const notesOnPage = 7;
 
   useEffect(() => {
@@ -27,17 +28,7 @@ export const Posts: FC = () => {
       dispatch(getPosts());
     }
   }, []);
-  const pagination = (posts: any) => {
-    const countOfItems = Array.from(
-      { length: Math.ceil(postsCount / notesOnPage) },
-      () => posts.slice(0, notesOnPage)
-    );
-    return countOfItems.map((el, index) => (
-      <button onClick={() => setPage(index)} key={index}>
-        {index + 1}
-      </button>
-    ));
-  };
+
   const deletePost = (comment: any) => {
     dispatch(postDelete(comment.id));
   };
@@ -104,7 +95,7 @@ export const Posts: FC = () => {
             })}
         </tbody>
         <div css={PostsStyles.PostsContentPagination}>
-          {posts.length > 0 && pagination(posts)}
+          {posts.length > 0 && Pagination(posts, notesOnPage, count, setPage)}
         </div>
       </div>
     </div>

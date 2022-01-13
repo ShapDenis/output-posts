@@ -4,7 +4,7 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { RootState } from "../store";
 
 type Users = { id: number; name: string };
 

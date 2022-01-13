@@ -6,8 +6,8 @@ import {
   postDelete,
   selectPosts,
   selectPostsCount,
-} from "../slice/post";
-import { getUsers, selectAll } from "../slice/users";
+} from "../../slice/post";
+import { getUsers, selectAll } from "../../slice/users";
 import { PostsStyles } from "./PostsStyles";
 import { Link } from "react-router-dom";
 import { Pagination } from "../../helpers/Pagination";

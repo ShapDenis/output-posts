@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, selectUsers, selectUsersCount } from "../slice/users";
+import { getUsers, selectUsers, selectUsersCount } from "../../slice/users";
 import { Pagination } from "../../helpers/Pagination";
 import { UsersStyles } from "./UsersStyle";
 

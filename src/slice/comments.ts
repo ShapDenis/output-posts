@@ -3,7 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { RootState } from "../store";
 
 type Comments = {
   postId: number;

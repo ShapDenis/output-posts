@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAlbums, selectAlbums, selectAlbumsCount } from "../slice/albums";
+import { getAlbums, selectAlbums, selectAlbumsCount } from "../../slice/albums";
 import { Pagination } from "../../helpers/Pagination";
 import { AlbumsStyles } from "./AlbumsStyle";
 import { Link } from "react-router-dom";

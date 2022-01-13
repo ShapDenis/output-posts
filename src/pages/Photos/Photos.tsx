@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPhotos, selectPhotos, selectPhotosCount } from "../slice/photos";
+import { getPhotos, selectPhotos, selectPhotosCount } from "../../slice/photos";
 import { Pagination } from "../../helpers/Pagination";
 import { PhotosStyles } from "./PhotosStyle";
 import { useParams } from "react-router-dom";

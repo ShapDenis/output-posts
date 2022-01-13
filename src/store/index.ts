@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { posts } from "../pages/slice/post";
-import { users } from "../pages/slice/users";
-import { comments } from "../pages/slice/comments";
-import { albums } from "../pages/slice/albums";
-import { photos } from "../pages/slice/photos";
+import { posts } from "../slice/post";
+import { users } from "../slice/users";
+import { comments } from "../slice/comments";
+import { albums } from "../slice/albums";
+import { photos } from "../slice/photos";
 
 const rootReducer = combineReducers({ posts, users, comments, albums, photos });
 

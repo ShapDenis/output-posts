@@ -2,16 +2,16 @@ import React, { FC, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostStyles } from "./PostStyles";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPost } from "../slice/post";
+import { selectPost } from "../../slice/post";
 import {
   commentAdd,
   commentDelete,
   commentUpdated,
   getComments,
-} from "../slice/comments";
-import { selectAll } from "../slice/comments";
+} from "../../slice/comments";
+import { selectAll } from "../../slice/comments";
 import { PostsStyles } from "../Posts/PostsStyles";
-import { postUpdated } from "../slice/post";
+import { postUpdated } from "../../slice/post";
 
 export const Post: FC = () => {
   const navigate = useNavigate();

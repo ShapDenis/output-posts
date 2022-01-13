@@ -4,7 +4,7 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { RootState } from "../store";
 import { selectUserByID } from "./users";
 
 type Post = { userId: number; id: number; title: string; body: string };

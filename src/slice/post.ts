@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { selectUserByID } from "./users";
+import { getItemsByPagination } from "../helpers/getItemsByPagination";
 
 type Post = { userId: number; id: number; title: string; body: string };
 const notesOnPage = 7;
@@ -34,34 +35,34 @@ export const selectPosts = (
 ) =>
   createSelector([selectRootState], (state) => {
     const posts = selectAll(state);
+    const filterPostsSearchFields = posts.filter((e) => {
+      return e.body.includes(searchFields);
+    });
+    const filterPostsAuthorId = posts.filter((e) => {
+      return e.userId === authorId;
+    });
     if (searchFields) {
-      return posts
-        .filter((e) => {
-          return e.body.includes(searchFields);
-        })
-        .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
-        .map((el) => {
-          const user = selectUserByID(state, el.userId);
-          return { ...el, user: user };
-        });
-    }
-    if (authorId) {
-      return posts
-        .filter((e) => {
-          return e.userId === authorId;
-        })
-        .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
-        .map((el) => {
-          const user = selectUserByID(state, el.userId);
-          return { ...el, user: user };
-        });
-    }
-    return posts
-      .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
-      .map((el) => {
+      return getItemsByPagination(
+        filterPostsSearchFields,
+        notesOnPage,
+        page
+      ).map((el) => {
         const user = selectUserByID(state, el.userId);
         return { ...el, user: user };
       });
+    }
+    if (authorId) {
+      return getItemsByPagination(filterPostsAuthorId, notesOnPage, page).map(
+        (el) => {
+          const user = selectUserByID(state, el.userId);
+          return { ...el, user: user };
+        }
+      );
+    }
+    return getItemsByPagination(posts, notesOnPage, page).map((el) => {
+      const user = selectUserByID(state, el.userId);
+      return { ...el, user: user };
+    });
   });
 
 export const selectPost = (id: number) =>

@@ -5,6 +5,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { getItemsByPagination } from "../helpers/getItemsByPagination";
 
 type Photos = {
   albumId: number;
@@ -31,12 +32,8 @@ export const { selectAll } = photosAdapter.getSelectors(selectState);
 export const selectPhotos = (page: number, notesOnPage: number, id: number) =>
   createSelector([selectRootState], (state) => {
     const photos = selectAll(state);
-    return photos
-      .filter((photo) => photo.albumId === id)
-      .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
-      .map((el) => {
-        return { ...el };
-      });
+    const photosFilter = photos.filter((photo) => photo.albumId === id);
+    return getItemsByPagination(photosFilter, notesOnPage, page);
   });
 
 export const getPhotos = createAsyncThunk(`/getPhotos`, async () => {

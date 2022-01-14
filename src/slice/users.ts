@@ -5,6 +5,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { getItemsByPagination } from "../helpers/getItemsByPagination";
 
 type Users = { id: number; name: string };
 
@@ -27,11 +28,7 @@ export const { selectAll, selectById: selectUserByID } =
 export const selectUsers = (page: number, notesOnPage: number) =>
   createSelector([selectRootState], (state) => {
     const users = selectAll(state);
-    return users
-      .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
-      .map((el) => {
-        return { ...el };
-      });
+    return getItemsByPagination(users, notesOnPage, page);
   });
 
 export const getUsers = createAsyncThunk(`/getUsers`, async () => {

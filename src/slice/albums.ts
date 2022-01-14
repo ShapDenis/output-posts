@@ -5,6 +5,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { getItemsByPagination } from "../helpers/getItemsByPagination";
 
 type Albums = { id: number; userId: number; title: string };
 
@@ -25,11 +26,7 @@ export const { selectAll } = albumsAdapter.getSelectors(selectState);
 export const selectAlbums = (page: number, notesOnPage: number) =>
   createSelector([selectRootState], (state) => {
     const albums = selectAll(state);
-    return albums
-      .slice(notesOnPage * page, notesOnPage * page + notesOnPage)
-      .map((el) => {
-        return { ...el };
-      });
+    return getItemsByPagination(albums, notesOnPage, page);
   });
 
 export const getAlbums = createAsyncThunk(`/getAlbums`, async () => {

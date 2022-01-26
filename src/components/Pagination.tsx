@@ -1,5 +1,5 @@
 import React from "react";
-//onClick на кнопку
+//onClick переимновать
 export const Pagination = (numberOfButtons: number, setPage: any) => {
   const countOfItems = Array.from({ length: Math.ceil(numberOfButtons) });
   return countOfItems.map((el, index) => (
@@ -8,6 +8,3 @@ export const Pagination = (numberOfButtons: number, setPage: any) => {
     </button>
   ));
 };
-
-//кастомный хук реализация переключене страниц
-// возвращает текущая страница, количество страниц, выбор страницы(ф-ция выбранной страницы)

@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, selectUsers, selectUsersCount } from "../../slice/users";
 import { Pagination } from "../../components/Pagination";
 import { UsersStyles } from "./UsersStyle";
+import { usePagination } from "../../hooks/usePagination";
 
 export const Users = () => {
-  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const notesOnPage = 5;
-  const users = useSelector(selectUsers(page, notesOnPage));
-  const numberOfButtons = useSelector(selectUsersCount()) / notesOnPage;
+  const usersCount = useSelector(selectUsersCount());
+  const { currentPage, numberOfPages, setPage, countOnPage } = usePagination(
+    usersCount,
+    notesOnPage
+  );
+  const users = useSelector(selectUsers(currentPage, countOnPage));
 
   useEffect(() => {
     dispatch(getUsers());
@@ -30,7 +34,7 @@ export const Users = () => {
         </ul>
       </div>
       <div css={UsersStyles.UsersContentPagination}>
-        {users.length > 0 && Pagination(numberOfButtons, setPage)}
+        {users.length > 0 && Pagination(numberOfPages, setPage)}
       </div>
     </form>
   );

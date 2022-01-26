@@ -9,7 +9,6 @@ import { selectUserByID } from "./users";
 import { getItemsByPagination } from "../helpers/getItemsByPagination";
 
 type Post = { userId: number; id: number; title: string; body: string };
-const notesOnPage = 7;
 export const postsAdapter = createEntityAdapter<Post>({
   selectId: (posts) => posts.id,
 });
@@ -31,7 +30,8 @@ export const selectPostsCount = (authorId: number) =>
 export const selectPosts = (
   page: number,
   authorId: number,
-  searchFields: string
+  searchFields: string,
+  notesOnPage: number
 ) =>
   createSelector([selectRootState], (state) => {
     const posts = selectAll(state);

@@ -60,7 +60,6 @@ export const Posts: FC = () => {
           id="selectBox"
           onChange={(event) => {
             setAuthorChange(Number(event.target.value));
-            setPage(0);
           }}
         >
           {users.map((user) => (
@@ -73,7 +72,6 @@ export const Posts: FC = () => {
           type="text"
           onChange={(event) => {
             setSearchFields(event.target.value);
-            setPage(0);
           }}
         />
         <button onClick={() => addPost()}>add Post</button>

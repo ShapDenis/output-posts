@@ -9,6 +9,7 @@ import { selectUserByID } from "./users";
 import { getItemsByPagination } from "../helpers/getItemsByPagination";
 
 type Post = { userId: number; id: number; title: string; body: string };
+
 export const postsAdapter = createEntityAdapter<Post>({
   selectId: (posts) => posts.id,
 });

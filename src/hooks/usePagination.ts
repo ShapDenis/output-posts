@@ -9,6 +9,5 @@ export const usePagination = (count: number, countOnPage = 20) => {
   }, [countOnPage, count]);
 
   const setPage = (page: number) => setCurrentPage(page);
-
   return { currentPage, numberOfPages, countOnPage, setPage };
 };

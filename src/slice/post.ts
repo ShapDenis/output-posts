@@ -37,7 +37,7 @@ export const selectPosts = (
   createSelector([selectRootState], (state) => {
     const posts = selectAll(state);
     const filterPostsSearchFields = posts.filter((e) => {
-      return e.body.includes(searchFields);
+      return searchFields && e.body?.includes(searchFields);
     });
     const filterPostsAuthorId = posts.filter((e) => {
       return e.userId === authorId;

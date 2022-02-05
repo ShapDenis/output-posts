@@ -25,10 +25,10 @@ export const selectUsersCount = () =>
 export const { selectAll, selectById: selectUserByID } =
   usersAdapter.getSelectors(selectState);
 
-export const selectUsers = (page: number, notesOnPage: number) =>
+export const selectUsers = () =>
   createSelector([selectRootState], (state) => {
     const users = selectAll(state);
-    return getItemsByPagination(users, notesOnPage, page);
+    return getItemsByPagination(users, 20, 1);
   });
 
 export const getUsers = createAsyncThunk(`/getUsers`, async () => {

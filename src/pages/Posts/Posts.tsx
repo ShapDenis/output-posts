@@ -20,17 +20,16 @@ export const Posts: FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const users = useSelector(selectAll);
   const notesOnPage = 7;
-  const postsCount = useSelector(selectPostsCount(authorChange));
-
-  const { currentPage, numberOfPages, setPage, countOnPage } = usePagination(
+  const postsCount = useSelector(selectPostsCount(authorChange)); ///currentPage,countOnPage
+  const posts = useSelector(selectPosts(authorChange, searchFields));
+  //                105         arr       7
+  // console.log(postsCount, posts, notesOnPage);
+  const { numberOfPages, setPage } = usePagination(
     postsCount,
+    posts,
     notesOnPage
   );
-
-  const posts = useSelector(
-    selectPosts(currentPage, authorChange, searchFields, countOnPage)
-  );
-
+  // console.log(numberOfPages, setPage);
   useEffect(() => {
     if (posts.length === 0) {
       dispatch(getUsers());

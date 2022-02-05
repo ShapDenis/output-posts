@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-export const usePagination = (count: number, countOnPage = 20) => {
+export const usePagination = <T>(
+  count: number,
+  posts: T[],
+  countOnPage = 20
+) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(0);
 

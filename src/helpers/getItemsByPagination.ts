@@ -1,7 +1,7 @@
 export const getItemsByPagination = <T>(
   items: T[], // все items
   perPage: number, // количество на странице
-  currentPage: number
+  currentPage: number // текущая страница
 ) => {
   const startItem = (currentPage - 1) * perPage;
   const lastItem = currentPage * perPage;

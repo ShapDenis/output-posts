@@ -10,11 +10,12 @@ export const Albums = () => {
   const dispatch = useDispatch();
   const notesOnPage = 15;
   const albumsCount = useSelector(selectAlbumsCount());
-  const { currentPage, numberOfPages, setPage, countOnPage } = usePagination(
+  const albums = useSelector(selectAlbums());
+  const { numberOfPages, setPage } = usePagination(
     albumsCount,
+    albums,
     notesOnPage
   );
-  const albums = useSelector(selectAlbums(currentPage, countOnPage));
 
   useEffect(() => {
     if (albums.length === 0) {

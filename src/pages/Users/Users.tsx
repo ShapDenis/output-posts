@@ -9,11 +9,12 @@ export const Users = () => {
   const dispatch = useDispatch();
   const notesOnPage = 5;
   const usersCount = useSelector(selectUsersCount());
-  const { currentPage, numberOfPages, setPage, countOnPage } = usePagination(
+  const users = useSelector(selectUsers());
+  const { numberOfPages, setPage } = usePagination(
     usersCount,
+    users,
     notesOnPage
   );
-  const users = useSelector(selectUsers(currentPage, countOnPage));
 
   useEffect(() => {
     dispatch(getUsers());

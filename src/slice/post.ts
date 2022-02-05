@@ -28,39 +28,28 @@ export const selectPostsCount = (authorId: number) =>
     return posts.length;
   });
 
-export const selectPosts = (
-  page: number,
-  authorId: number,
-  searchFields: string,
-  notesOnPage: number
-) =>
+export const selectPosts = (authorId: number, searchFields: string) =>
   createSelector([selectRootState], (state) => {
     const posts = selectAll(state);
     const filterPostsSearchFields = posts.filter((e) => {
-      return searchFields && e.body?.includes(searchFields);
+      return e.body?.includes(searchFields);
     });
     const filterPostsAuthorId = posts.filter((e) => {
       return e.userId === authorId;
     });
     if (searchFields) {
-      return getItemsByPagination(
-        filterPostsSearchFields,
-        notesOnPage,
-        page
-      ).map((el) => {
+      return getItemsByPagination(filterPostsSearchFields, 20, 1).map((el) => {
         const user = selectUserByID(state, el.userId);
         return { ...el, user: user };
       });
     }
     if (authorId) {
-      return getItemsByPagination(filterPostsAuthorId, notesOnPage, page).map(
-        (el) => {
-          const user = selectUserByID(state, el.userId);
-          return { ...el, user: user };
-        }
-      );
+      return getItemsByPagination(filterPostsAuthorId, 20, 1).map((el) => {
+        const user = selectUserByID(state, el.userId);
+        return { ...el, user: user };
+      });
     }
-    return getItemsByPagination(posts, notesOnPage, page).map((el) => {
+    return getItemsByPagination(posts, 20, 1).map((el) => {
       const user = selectUserByID(state, el.userId);
       return { ...el, user: user };
     });

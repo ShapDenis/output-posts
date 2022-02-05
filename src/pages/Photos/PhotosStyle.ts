@@ -24,4 +24,7 @@ export const PhotosStyles = {
     grid-template-columns: 150px 150px 150px 150px 150px;
     text-align: center;
   `,
+  PhotosImgBig: css`
+    cursor: pointer;
+  `,
 };

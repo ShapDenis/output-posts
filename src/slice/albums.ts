@@ -23,10 +23,10 @@ export const selectAlbumsCount = () =>
   });
 export const { selectAll } = albumsAdapter.getSelectors(selectState);
 
-export const selectAlbums = (page: number, notesOnPage: number) =>
+export const selectAlbums = () =>
   createSelector([selectRootState], (state) => {
     const albums = selectAll(state);
-    return getItemsByPagination(albums, notesOnPage, page);
+    return getItemsByPagination(albums, 20, 1);
   });
 
 export const getAlbums = createAsyncThunk(`/getAlbums`, async () => {

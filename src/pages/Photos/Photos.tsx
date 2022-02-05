@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPhotos, selectPhotos, selectPhotosCount } from "../../slice/photos";
 import { Pagination } from "../../components/Pagination";
@@ -11,13 +11,12 @@ export const Photos = () => {
   const notesOnPage = 10;
   const dispatch = useDispatch();
   const photosCount = useSelector(selectPhotosCount(Number(id)));
-  const { currentPage, numberOfPages, setPage, countOnPage } = usePagination(
+  const [img, setImg] = useState();
+  const photos = useSelector(selectPhotos(Number(id)));
+  const { numberOfPages, setPage } = usePagination(
     photosCount,
+    photos,
     notesOnPage
-  );
-
-  const photos = useSelector(
-    selectPhotos(currentPage, countOnPage, Number(id))
   );
 
   useEffect(() => {
@@ -27,8 +26,14 @@ export const Photos = () => {
   }, []);
 
   const handleFormSubmit = (e: any) => {
+    console.log(img);
     e.preventDefault();
   };
+  // const handleImgClick = (id:num) => {
+  //   return () => {
+  //     console.log();
+  //   };
+  // };
   return (
     <form onSubmit={handleFormSubmit}>
       <div css={PhotosStyles.PhotosContent}>
@@ -38,10 +43,12 @@ export const Photos = () => {
               return (
                 <figure key={photo.id}>
                   <img
+                    css={PhotosStyles.PhotosImgBig}
                     src={photo.thumbnailUrl}
                     width="75"
                     height="90"
                     alt={photo.title}
+                    onClick={() => console.log(photo.id)}
                   />
                   <figcaption>{photo.title}</figcaption>
                 </figure>

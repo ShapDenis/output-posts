@@ -25,8 +25,7 @@ export const { selectAll } = albumsAdapter.getSelectors(selectState);
 
 export const selectAlbums = () =>
   createSelector([selectRootState], (state) => {
-    const albums = selectAll(state);
-    return getItemsByPagination(albums, 20, 1);
+    return selectAll(state);
   });
 
 export const getAlbums = createAsyncThunk(`/getAlbums`, async () => {

@@ -27,8 +27,7 @@ export const { selectAll, selectById: selectUserByID } =
 
 export const selectUsers = () =>
   createSelector([selectRootState], (state) => {
-    const users = selectAll(state);
-    return getItemsByPagination(users, 20, 1);
+    return selectAll(state);
   });
 
 export const getUsers = createAsyncThunk(`/getUsers`, async () => {

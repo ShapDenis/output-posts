@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPhotos, selectPhotos, selectPhotosCount } from "../../slice/photos";
 import { Pagination } from "../../components/Pagination";
@@ -12,7 +12,7 @@ export const Photos = () => {
   const dispatch = useDispatch();
   const photosCount = useSelector(selectPhotosCount(Number(id)));
   const photos = useSelector(selectPhotos(Number(id)));
-  const { numberOfPages, setPage } = usePagination(
+  const { numberOfPages, setPage, items } = usePagination(
     photosCount,
     photos,
     notesOnPage
@@ -31,8 +31,8 @@ export const Photos = () => {
     <form onSubmit={handleFormSubmit}>
       <div css={PhotosStyles.PhotosContent}>
         <ul css={PhotosStyles.PhotosImgBlock}>
-          {photos &&
-            photos.map((photo) => {
+          {items &&
+            items.map((photo) => {
               return (
                 <figure key={photo.id}>
                   <img
@@ -50,7 +50,7 @@ export const Photos = () => {
         </ul>
       </div>
       <div css={PhotosStyles.PhotosContentPagination}>
-        {photos.length > 0 && Pagination(numberOfPages, setPage)}
+        {items.length > 0 && Pagination(numberOfPages, setPage)}
       </div>
     </form>
   );

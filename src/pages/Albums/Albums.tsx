@@ -11,7 +11,7 @@ export const Albums = () => {
   const notesOnPage = 15;
   const albumsCount = useSelector(selectAlbumsCount());
   const albums = useSelector(selectAlbums());
-  const { numberOfPages, setPage } = usePagination(
+  const { numberOfPages, setPage, items } = usePagination(
     albumsCount,
     albums,
     notesOnPage
@@ -31,8 +31,8 @@ export const Albums = () => {
     <form onSubmit={handleFormSubmit}>
       <div css={AlbumsStyles.AlbumsContent}>
         <ul>
-          {albums &&
-            albums.map((album) => {
+          {items &&
+            items.map((album) => {
               return (
                 <Link to={`/albums/photos/${album.id}`} key={album.id}>
                   <li css={AlbumsStyles.AlbumsLi} key={album.id}>
@@ -45,7 +45,7 @@ export const Albums = () => {
       </div>
 
       <div css={AlbumsStyles.AlbumsContentPagination}>
-        {albums.length > 0 && Pagination(numberOfPages, setPage)}
+        {items.length > 0 && Pagination(numberOfPages, setPage)}
       </div>
     </form>
   );

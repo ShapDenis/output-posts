@@ -32,8 +32,7 @@ export const { selectAll } = photosAdapter.getSelectors(selectState);
 export const selectPhotos = (id: number) =>
   createSelector([selectRootState], (state) => {
     const photos = selectAll(state);
-    const photosFilter = photos.filter((photo) => photo.albumId === id);
-    return getItemsByPagination(photosFilter, 20, 1);
+    return photos.filter((photo) => photo.albumId === id);
   });
 
 export const getPhotos = createAsyncThunk(`/getPhotos`, async () => {

@@ -10,7 +10,7 @@ export const Users = () => {
   const notesOnPage = 5;
   const usersCount = useSelector(selectUsersCount());
   const users = useSelector(selectUsers());
-  const { numberOfPages, setPage } = usePagination(
+  const { numberOfPages, setPage, items } = usePagination(
     usersCount,
     users,
     notesOnPage
@@ -28,14 +28,14 @@ export const Users = () => {
     <form onSubmit={handleFormSubmit}>
       <div>
         <ul>
-          {users &&
-            users.map((user) => {
+          {items &&
+            items.map((user) => {
               return <li key={user.id}>{user.name}</li>;
             })}
         </ul>
       </div>
       <div css={UsersStyles.UsersContentPagination}>
-        {users.length > 0 && Pagination(numberOfPages, setPage)}
+        {items.length > 0 && Pagination(numberOfPages, setPage)}
       </div>
     </form>
   );

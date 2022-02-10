@@ -20,7 +20,7 @@ export const Posts: FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const users = useSelector(selectAll);
   const notesOnPage = 7;
-  const postsCount = useSelector(selectPostsCount(authorChange));
+  const postsCount = useSelector(selectPostsCount(authorChange, searchFields));
   const posts = useSelector(selectPosts(authorChange, searchFields));
 
   const { numberOfPages, setPage, items } = usePagination(

@@ -17,12 +17,17 @@ export const postsAdapter = createEntityAdapter<Post>({
 const selectState = (state: RootState) => state.posts;
 const selectRootState = (state: RootState) => state;
 
-export const selectPostsCount = (authorId: number) =>
+export const selectPostsCount = (authorId: number, searchFields: string) =>
   createSelector([selectRootState], (state) => {
     const posts = selectAll(state);
     if (authorId) {
       return posts.filter((e) => {
         return e.userId === authorId;
+      }).length;
+    }
+    if (searchFields) {
+      return posts.filter((e) => {
+        return e.body?.includes(searchFields);
       }).length;
     }
     return posts.length;

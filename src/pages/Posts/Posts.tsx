@@ -22,16 +22,14 @@ export const Posts: FC = () => {
   const notesOnPage = 7;
   const postsCount = useSelector(selectPostsCount(authorChange)); ///currentPage,countOnPage
   const posts = useSelector(selectPosts(authorChange, searchFields));
-  //                105         arr       7
-  // console.log(postsCount, posts, notesOnPage);
-  const { numberOfPages, setPage } = usePagination(
+
+  const { numberOfPages, setPage, items } = usePagination(
     postsCount,
     posts,
     notesOnPage
   );
-  // console.log(numberOfPages, setPage);
   useEffect(() => {
-    if (posts.length === 0) {
+    if (items.length === 0) {
       dispatch(getUsers());
       dispatch(getPosts());
     }
@@ -69,9 +67,9 @@ export const Posts: FC = () => {
               <th css={PostsStyles.PostsContentHeader}>Title</th>
               <th css={PostsStyles.PostsContentHeader}>Body</th>
             </tr>
-            {posts &&
-              posts.length >= 0 &&
-              posts.map((post) => {
+            {items &&
+              items.length >= 0 &&
+              items.map((post) => {
                 return (
                   <Fragment key={post.id}>
                     <tr>
@@ -90,7 +88,7 @@ export const Posts: FC = () => {
               })}
           </tbody>
           <div css={PostsStyles.PostsContentPagination}>
-            {posts.length > 0 && Pagination(numberOfPages, setPage)}
+            {items.length > 0 && Pagination(numberOfPages, setPage)}
           </div>
         </div>
       </div>

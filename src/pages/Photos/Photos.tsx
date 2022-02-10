@@ -11,7 +11,6 @@ export const Photos = () => {
   const notesOnPage = 10;
   const dispatch = useDispatch();
   const photosCount = useSelector(selectPhotosCount(Number(id)));
-  const [img, setImg] = useState();
   const photos = useSelector(selectPhotos(Number(id)));
   const { numberOfPages, setPage } = usePagination(
     photosCount,
@@ -26,14 +25,8 @@ export const Photos = () => {
   }, []);
 
   const handleFormSubmit = (e: any) => {
-    console.log(img);
     e.preventDefault();
   };
-  // const handleImgClick = (id:num) => {
-  //   return () => {
-  //     console.log();
-  //   };
-  // };
   return (
     <form onSubmit={handleFormSubmit}>
       <div css={PhotosStyles.PhotosContent}>

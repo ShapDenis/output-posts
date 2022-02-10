@@ -38,18 +38,18 @@ export const selectPosts = (authorId: number, searchFields: string) =>
       return e.userId === authorId;
     });
     if (searchFields) {
-      return getItemsByPagination(filterPostsSearchFields, 20, 1).map((el) => {
+      return getItemsByPagination(filterPostsSearchFields, 7, 1).map((el) => {
         const user = selectUserByID(state, el.userId);
         return { ...el, user: user };
       });
     }
     if (authorId) {
-      return getItemsByPagination(filterPostsAuthorId, 20, 1).map((el) => {
+      return getItemsByPagination(filterPostsAuthorId, 7, 1).map((el) => {
         const user = selectUserByID(state, el.userId);
         return { ...el, user: user };
       });
     }
-    return getItemsByPagination(posts, 20, 1).map((el) => {
+    return getItemsByPagination(posts, 7, 1).map((el) => {
       const user = selectUserByID(state, el.userId);
       return { ...el, user: user };
     });
